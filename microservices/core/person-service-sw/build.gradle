@@ -30,12 +30,12 @@ processResources {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web") {
-//        exclude module: 'spring-boot-starter-tomcat'
-    }
+    compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-redis")
-    compile 'org.springframework.cloud:spring-cloud-starter-feign' 
+    compile("org.springframework.cloud:spring-cloud-starter-feign")
+//    compile("org.springframework.cloud:spring-cloud-starter-sleuth")
+    compile("org.springframework.cloud:spring-cloud-starter-zipkin")
     compile("srai.micro:util:0.0.1-SNAPSHOT")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }

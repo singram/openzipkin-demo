@@ -36,13 +36,15 @@ public class PersonController extends ManagedResponseControllerBase {
     CachableSwapiPerson cachedPerson = new CachableSwapiPerson(personId);
     SwapiPerson person = personRepository.get(cachedPerson);
     if (person == null) {
-      // Retrieeve from service
+      // Retrieve from service
       ResponseEntity<SwapiPerson> swPersonResponse = swPersonService.getPerson(null, personId);
       person = swPersonResponse.getBody();
       if (person != null) {
         // Cache new character
+        logger.info("PUTTING STUFF IN REDIS");
         cachedPerson = new CachableSwapiPerson(personId, person);
         personRepository.put(cachedPerson);
+        logger.info("DONE PUTTING STUFF IN REDIS");
       }
     }
 

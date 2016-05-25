@@ -8,5 +8,13 @@ info:
 spring:
   redis:
     host: person-service-redis
-    
+  sleuth:
+    feign:
+      enabled: true
+    sampler:
+      percentage: 1
+  zipkin:
+    base-url: http://zipkin-query:9411 
+
 logging.level.srai.micro.service.services.SwapiService: DEBUG
+
