@@ -6,6 +6,7 @@ person-service:
     - ./microservices/core/person-service-sw/build/libs:/build
   links:
     - person-service-redis
+    - zipkin-query
   ports:
     - "8080:8080"
   log_driver: gelf
@@ -17,6 +18,45 @@ person-service-redis:
   ports:
     - "6379:6379"
 
+zipkin-storage:
+  image: openzipkin/zipkin-cassandra:1.40.1
+  ports:
+    - 9042:9042
+
+# The query process services the UI, and also exposes a POST endpoint that
+# instrumentation can send trace data to.
+zipkin-query:
+  image: openzipkin/zipkin-query:1.40.1
+  environment:
+    # Remove TRANSPORT_TYPE to disable tracing
+    - TRANSPORT_TYPE=http
+    - STORAGE_TYPE=cassandra
+    # Point the query service at the storage backend
+    - CASSANDRA_CONTACT_POINTS=zipkin-storage
+  ports:
+    # The http api is mounted at /api/v1
+    - 9411:9411
+    # Admin interface is under the http path /admin
+    # https://twitter.github.io/twitter-server/Features.html#http-admin-interface
+    - 9901:9901
+  links:
+    - zipkin-storage
+
+zipkin-web:
+  image: openzipkin/zipkin-web:1.40.1
+  environment:
+    # Remove TRANSPORT_TYPE to disable tracing
+    - TRANSPORT_TYPE=http
+    # Point the web service at the query backend
+    - QUERY_ADDR=zipkin-query:9411
+  ports:
+    # Web UI is mounted at the root, and the http api under /api/v1
+    - 8081:8080
+    # Admin interface is under the http path /admin
+    # https://twitter.github.io/twitter-server/Features.html#http-admin-interface
+    - 9990:9990
+  links:
+    - zipkin-query
 
 probe:
   image: weaveworks/scope:0.15.0

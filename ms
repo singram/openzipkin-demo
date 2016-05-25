@@ -18,7 +18,6 @@ function help {
     echo "    ./${SCRIPT_NAME} portals"
     echo "    ./${SCRIPT_NAME} purge"
     echo "    ./${SCRIPT_NAME} purge_all"
-    echo "    ./${SCRIPT_NAME} run_elk"
     echo "    ./${SCRIPT_NAME} run"
     echo "    ./${SCRIPT_NAME} stats"
     echo
@@ -60,11 +59,8 @@ case $CMD in
         ;;
     "portals")
         echo "Viewing management portals..."
-        firefox http://localhost:8001 \
-                http://localhost:8000/hystrix \
-                http://localhost:8000/hystrix/monitor?stream=http%3A%2F%2Fperson-composite-service%3A8080%2Fhystrix.stream \
-                http://localhost:8000/hystrix/monitor?stream=http%3A%2F%2Fturbine-service%3A8989%2Fturbine.stream \
-                http://localhost:80/ \
+        firefox http://localhost:8081 \
+                http://localhost:9990 \
                 http://localhost:4040/ &
         ;;
     "purge")
@@ -80,10 +76,6 @@ case $CMD in
     "run")
         echo "Starting services..."
         exec docker-compose up
-        ;;
-    "run_elk")
-        echo "Starting services..."
-        exec docker-compose -f docker-compose-elk.yml up
         ;;
     "stats")
         echo "Displaying docker stats..."
