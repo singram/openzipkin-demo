@@ -1,0 +1,12 @@
+#!/bin/bash
+
+defaulthost="localhost:8080"
+HOST=${1-$defaulthost}
+URLPATH="/person/"
+
+echo "Loading test data to ${HOST}"
+curl -i -X POST -H "Content-Type:application/json" -d "{ \"name\" : \"Frodo Baggins\", \"id\" : \"1\" } " http://${HOST}${URLPATH}
+curl -i -X POST -H "Content-Type:application/json" -d "{ \"name\" : \"Samwise Gamgee\", \"id\" : \"2\" } " http://${HOST}${URLPATH}
+curl -i -X POST -H "Content-Type:application/json" -d "{ \"name\" : \"Meriadoc Brandybuck\", \"id\" : \"3\" } " http://${HOST}${URLPATH}
+curl -i -X POST -H "Content-Type:application/json" -d "{ \"name\" : \"Peregrin Took\", \"id\" : \"4\" } " http://${HOST}${URLPATH}
+curl -i -X POST -H "Content-Type:application/json" -d "{ \"name\" : \"Gandalf Grey\", \"id\" : \"5\" } " http://${HOST}${URLPATH}
