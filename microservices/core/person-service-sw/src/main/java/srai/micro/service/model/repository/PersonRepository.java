@@ -23,24 +23,33 @@ public class PersonRepository implements Repository<CachableSwapiPerson> {
 
   @Override
   public void put(CachableSwapiPerson person) {
-    redisTemplate.opsForHash().put(person.getObjectKey(), person.getKey(), person);
+    Span newSpan = this.tracer.createSpan("redis");
+    try {
+      newSpan.tag("Operation", "write");
+      redisTemplate.opsForHash().put(person.getObjectKey(), person.getKey(), person);
+    } finally {
+      this.tracer.close(newSpan);
+    }
   }
 
   @Override
   public void delete(CachableSwapiPerson key) {
-    redisTemplate.opsForHash().delete(key.getObjectKey(), key.getKey());
+    Span newSpan = this.tracer.createSpan("redis");
+    try {
+      newSpan.tag("Operation", "delete");
+      redisTemplate.opsForHash().delete(key.getObjectKey(), key.getKey());
+    } finally {
+      this.tracer.close(newSpan);
+    }
   }
 
   @Override
   public CachableSwapiPerson get(CachableSwapiPerson key) {
-    //    return (CachableSwapiPerson) redisTemplate.opsForHash().get(key.getObjectKey(), key.getKey());
-    Span newSpan = this.tracer.joinTrace("redis", this.tracer.getCurrentSpan());
+    Span newSpan = this.tracer.createSpan("redis");
     try {
-      newSpan.logEvent("taxCalculated");
+      newSpan.tag("Operation", "read");
       return (CachableSwapiPerson) redisTemplate.opsForHash().get(key.getObjectKey(), key.getKey());
     } finally {
-      // Once done remember to close the span. This will allow collecting
-      // the span to send it to Zipkin
       this.tracer.close(newSpan);
     }
   }
