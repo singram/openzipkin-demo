@@ -28,6 +28,7 @@ function build {
     cd microservices/core/person-service-sw;              ./gradlew clean build; cd -
 
     find . -name *SNAPSHOT.jar -exec du -h {} \;
+    docker-compose build
 }
 
 case $CMD in
@@ -61,6 +62,7 @@ case $CMD in
         echo "Viewing management portals..."
         firefox http://localhost:8081 \
                 http://localhost:9990 \
+                http://localhost:8082 \
                 http://localhost:4040/ &
         ;;
     "purge")

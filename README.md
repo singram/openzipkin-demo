@@ -62,10 +62,16 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
 
 ## References
 
-https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin
-http://cloud.spring.io/spring-cloud-sleuth/spring-cloud-sleuth.html#_features
-https://programmaticponderings.wordpress.com/2016/02/15/diving-deeper-into-getting-started-with-spring-cloud/
-https://git-scm.com/book/en/v2/Git-Tools-Submodules
-https://github.com/openzipkin/docker-zipkin
-https://github.com/openzipkin/zipkin-tracer
-https://github.com/spring-cloud/spring-cloud-sleuth
+### Open Zipkin
+- https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin
+- http://cloud.spring.io/spring-cloud-sleuth/spring-cloud-sleuth.html#_features
+- https://programmaticponderings.wordpress.com/2016/02/15/diving-deeper-into-getting-started-with-spring-cloud/
+- https://git-scm.com/book/en/v2/Git-Tools-Submodules
+- https://github.com/openzipkin/docker-zipkin
+- https://github.com/openzipkin/zipkin-tracer
+- https://github.com/spring-cloud/spring-cloud-sleuth
+
+### Java Annotations
+- http://www.yegor256.com/2014/06/01/aop-aspectj-java-method-logging.html
+- http://veerasundar.com/blog/2010/01/spring-aop-example-profiling-method-execution-time-tutorial/
+- https://egkatzioura.wordpress.com/2016/05/29/aspect-oriented-programming-with-spring-boot/

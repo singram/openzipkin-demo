@@ -1,3 +1,19 @@
+quote-service:
+  build: ./microservices/core/quote-service/.
+  hostname: quote-service
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /etc/timezone:/etc/timezone:ro
+    - ./microservices/core/quote-service:/build
+  links:
+    - zipkin-query
+  ports:
+    - "4567:4567"
+  log_driver: gelf
+  log_opt:
+    gelf-address: udp://${DOCKER_HOST_IP}:12201
+
+
 person-service:
   build: ./microservices/core/person-service-sw/.
   volumes:
@@ -72,3 +88,19 @@ probe:
   command:
     - "--probe.docker"
     - "true"
+
+cadvisor:
+  image: google/cadvisor:v0.23.2
+  volumes:
+    - "/:/rootfs:ro"
+    - "/var/run:/var/run:rw"
+    - "/sys:/sys:ro"
+    - "/var/lib/docker/:/var/lib/docker:ro"
+  ports:
+    - "8082:8080"
+#  expose:
+#    - "8080"
+  labels:
+    - "name=cAdvisor"
+    - "description=Google Container Advisor collects metrics from host and containers"
+    - "version=latest"
