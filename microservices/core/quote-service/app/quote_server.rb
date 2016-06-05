@@ -9,7 +9,7 @@ set :bind, '0.0.0.0'
 use ZipkinTracer::RackHandler, {
       :service_name => 'quote-server',
       :service_port => 4567,
-      :json_api_host => 'http://zipkin-query:9411',
+      :json_api_host => ENV['ZIPKIN_QUERY_URL'] || 'http://zipkin-query:9411',
       :log_tracing => true,
       :sample_rate => ENV['ZIPKIN_SAMPLE_RATE'] || 1
    }
