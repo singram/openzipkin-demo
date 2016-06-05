@@ -16,5 +16,7 @@ spring:
   zipkin:
     base-url: http://zipkin-query:9411 
 
-logging.level.srai.micro.service.services.SwapiService: DEBUG
+logging:
+  level:
+    srai.micro.service.services.SwapiService: DEBUG
 
