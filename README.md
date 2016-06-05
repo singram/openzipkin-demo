@@ -62,6 +62,9 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
 
 ## References
 
+## Quote source
+- http://www.textfiles.com/humor/TAGLINES/
+
 ### Open Zipkin
 - https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin
 - http://cloud.spring.io/spring-cloud-sleuth/spring-cloud-sleuth.html#_features
