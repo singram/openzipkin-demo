@@ -8,32 +8,32 @@ import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import srai.micro.service.model.CachableSwapiPerson;
+import srai.micro.service.model.CachableSwapiCharacter;
 
 @Service
-public class PersonRepository implements Repository<CachableSwapiPerson> {
+public class CharacterRepository implements Repository<CachableSwapiCharacter> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(PersonRepository.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CharacterRepository.class);
 
   @Autowired
-  RedisTemplate<String, CachableSwapiPerson> redisTemplate;
+  RedisTemplate<String, CachableSwapiCharacter> redisTemplate;
 
   @Autowired
   Tracer tracer;
 
   @Override
-  public void put(CachableSwapiPerson person) {
+  public void put(CachableSwapiCharacter character) {
     Span newSpan = this.tracer.createSpan("redis");
     try {
       newSpan.tag("Operation", "write");
-      redisTemplate.opsForHash().put(person.getObjectKey(), person.getKey(), person);
+      redisTemplate.opsForHash().put(character.getObjectKey(), character.getKey(), character);
     } finally {
       this.tracer.close(newSpan);
     }
   }
 
   @Override
-  public void delete(CachableSwapiPerson key) {
+  public void delete(CachableSwapiCharacter key) {
     Span newSpan = this.tracer.createSpan("redis");
     try {
       newSpan.tag("Operation", "delete");
@@ -44,11 +44,11 @@ public class PersonRepository implements Repository<CachableSwapiPerson> {
   }
 
   @Override
-  public CachableSwapiPerson get(CachableSwapiPerson key) {
+  public CachableSwapiCharacter get(CachableSwapiCharacter key) {
     Span newSpan = this.tracer.createSpan("redis");
     try {
       newSpan.tag("Operation", "read");
-      return (CachableSwapiPerson) redisTemplate.opsForHash().get(key.getObjectKey(), key.getKey());
+      return (CachableSwapiCharacter) redisTemplate.opsForHash().get(key.getObjectKey(), key.getKey());
     } finally {
       this.tracer.close(newSpan);
     }

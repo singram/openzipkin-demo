@@ -1,13 +1,13 @@
 package srai.micro.service.model;
 
-public class CachableSwapiPerson extends SwapiPerson implements Cachable {
+public class CachableSwapiCharacter extends SwapiCharacter implements Cachable {
 
   private static final long serialVersionUID = 347915415730767126L;
 
   public static final String OBJECT_KEY = "SWAPI_CHARACTER";
 
-  public CachableSwapiPerson(long personId, SwapiPerson p) {
-    setId(personId);
+  public CachableSwapiCharacter(long characterId, SwapiCharacter p) {
+    setId(characterId);
     setEye_color(p.getEye_color());
     setName(p.getName());
     setGender(p.getGender());
@@ -30,11 +30,11 @@ public class CachableSwapiPerson extends SwapiPerson implements Cachable {
     this.id = id;
   }
 
-  public CachableSwapiPerson() {
+  public CachableSwapiCharacter() {
     super();
   }
 
-  public CachableSwapiPerson(long id) {
+  public CachableSwapiCharacter(long id) {
     super();
     setId(id);
   }

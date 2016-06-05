@@ -62,7 +62,7 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
 
 ## References
 
-## Quote source
+### Quote source
 - http://www.textfiles.com/humor/TAGLINES/
 
 ### Open Zipkin

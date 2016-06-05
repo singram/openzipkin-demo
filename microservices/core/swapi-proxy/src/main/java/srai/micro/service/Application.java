@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import srai.micro.service.model.CachableSwapiPerson;
+import srai.micro.service.model.CachableSwapiCharacter;
 
 @ComponentScan({"srai.common.micro.service.util", "srai.micro.service"})
 @SpringBootApplication
@@ -26,8 +26,8 @@ public class Application {
   }
 
   @Bean
-  RedisTemplate<String, CachableSwapiPerson> redisTemplate(RedisConnectionFactory connectionFactory) {
-    RedisTemplate<String, CachableSwapiPerson> template = new RedisTemplate<String, CachableSwapiPerson>();
+  RedisTemplate<String, CachableSwapiCharacter> redisTemplate(RedisConnectionFactory connectionFactory) {
+    RedisTemplate<String, CachableSwapiCharacter> template = new RedisTemplate<String, CachableSwapiCharacter>();
     template.setConnectionFactory(connectionFactory);
     return template;
   }

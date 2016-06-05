@@ -24,10 +24,11 @@ function help {
 }
 
 function build {
-    cd microservice-common-java;                          ./gradlew clean build publishToMavenLocal; cd -
-    cd microservices/core/person-service-sw;              ./gradlew clean build; cd -
+    cd microservice-common-java;                    ./gradlew clean build publishToMavenLocal; cd -
+    cd microservices/core/swapi-proxy;              ./gradlew clean build; cd -
 
     find . -name *SNAPSHOT.jar -exec du -h {} \;
+    docker-compose rm -f
     docker-compose build
 }
 
@@ -52,7 +53,7 @@ case $CMD in
         ;;
     "redis_load_data")
         echo "Load test data into redis"
-        ./microservices/core/person-service-sw/load_test_data $PARAMS
+        ./microservices/core/swapi-proxy/load_test_data $PARAMS
         ;;
     "redis_monitor")
         echo "Monitoring redis"

@@ -16,14 +16,14 @@ quote-service:
   log_opt:
     gelf-address: udp://${DOCKER_HOST_IP}:12201
 
-person-service:
-  build: ./microservices/core/person-service-sw/.
+swapi-proxy:
+  build: ./microservices/core/swapi-proxy/.
   volumes:
     - /etc/localtime:/etc/localtime:ro
     - /etc/timezone:/etc/timezone:ro
-    - ./microservices/core/person-service-sw/build/libs:/build
+    - ./microservices/core/swapi-proxy/build/libs:/build
   links:
-    - person-service-redis
+    - redis
     - zipkin-query
   environment:
     - SPRING_ZIPKIN_BASE-URL=http://zipkin-query:9411
@@ -34,7 +34,7 @@ person-service:
   log_opt:
     gelf-address: udp://${DOCKER_HOST_IP}:12201
 
-person-service-redis:
+redis:
   image: redis:3.2.0-alpine
   ports:
     - "6379:6379"

@@ -1,5 +1,5 @@
 FROM ruby:2.3.1-alpine
-LABEL  srai.micro.service="person-service-sw" srai.micro.project="true"
+LABEL  srai.micro.service="quote-service" srai.micro.project="true"
 
 ENV APP_HOME=/build
 RUN mkdir $APP_HOME && apk update && apk add git

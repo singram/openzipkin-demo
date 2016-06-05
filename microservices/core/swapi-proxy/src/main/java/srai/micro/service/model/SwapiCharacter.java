@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SwapiPerson implements Serializable {
+public class SwapiCharacter implements Serializable {
 
   private static final long serialVersionUID = 8672943541016167613L;
 

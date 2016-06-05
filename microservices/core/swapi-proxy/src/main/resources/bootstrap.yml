@@ -1,6 +1,6 @@
 spring:
   application:
-    name: person-service
+    name: swapi-proxy
   cloud:
     config:
       enabled: false   

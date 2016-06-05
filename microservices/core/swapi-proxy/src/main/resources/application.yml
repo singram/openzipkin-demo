@@ -7,7 +7,7 @@ info:
      
 spring:
   redis:
-    host: person-service-redis
+    host: redis
   sleuth:
     feign:
       enabled: true
