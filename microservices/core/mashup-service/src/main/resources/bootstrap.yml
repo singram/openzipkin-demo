@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: mashup-service
+  cloud:
+    config:
+      enabled: false   
+

@@ -1,3 +1,22 @@
+mashup-service:
+  build: ./microservices/core/mashup-service/.
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /etc/timezone:/etc/timezone:ro
+    - ./microservices/core/mashup-service/build/libs:/build
+  links:
+    - quote-service
+    - swapi-proxy
+    - zipkin-query
+  environment:
+    - SPRING_ZIPKIN_BASE-URL=http://zipkin-query:9411
+    - SPRING_SLEUTH_SAMLPER_PERCENTAGE=1.0
+  ports:
+    - "8083:8080"
+  log_driver: gelf
+  log_opt:
+    gelf-address: udp://${DOCKER_HOST_IP}:12201
+
 quote-service:
   build: ./microservices/core/quote-service/.
   hostname: quote-service

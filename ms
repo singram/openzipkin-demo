@@ -26,6 +26,7 @@ function help {
 function build {
     cd microservice-common-java;                    ./gradlew clean build publishToMavenLocal; cd -
     cd microservices/core/swapi-proxy;              ./gradlew clean build; cd -
+    cd microservices/core/mashup-service;           ./gradlew clean build; cd -
 
     find . -name *SNAPSHOT.jar -exec du -h {} \;
     docker-compose rm -f
@@ -49,7 +50,7 @@ case $CMD in
         ;;
     "redis_clear")
         echo "Clear redis"
-        docker exec -it openzipkindemo_person-service-redis_1 redis-cli FLUSHDB
+        docker exec -it openzipkindemo_redis_1 redis-cli FLUSHDB
         ;;
     "redis_load_data")
         echo "Load test data into redis"
@@ -57,7 +58,7 @@ case $CMD in
         ;;
     "redis_monitor")
         echo "Monitoring redis"
-        docker exec -it openzipkindemo_person-service-redis_1 redis-cli MONITOR
+        docker exec -it openzipkindemo_redis_1 redis-cli MONITOR
         ;;
     "portals")
         echo "Viewing management portals..."

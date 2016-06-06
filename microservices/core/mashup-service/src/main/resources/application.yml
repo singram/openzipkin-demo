@@ -1,0 +1,22 @@
+info:
+  build:
+    name: "${name}"
+    description: "${description}"
+    version: "${version}"
+    created_at: "${new Date()}"
+     
+spring:
+  redis:
+    host: redis
+  sleuth:
+    feign:
+      enabled: true
+    sampler:
+      percentage: 1
+  zipkin:
+    base-url: http://zipkin-query:9411 
+
+logging:
+  level:
+    srai.micro.service.services.SwapiService: DEBUG
+
