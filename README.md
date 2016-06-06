@@ -74,6 +74,16 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
 - https://github.com/openzipkin/zipkin-tracer
 - https://github.com/spring-cloud/spring-cloud-sleuth
 
+### Pinpoint
+- https://github.com/naver/pinpoint
+- https://github.com/naver/pinpoint/releases/tag/1.5.2
+- https://github.com/naver/pinpoint/blob/master/quickstart/README.md
+
+### Other
+- https://github.com/inspectIT/inspectIT
+- https://github.com/apache/incubator-htrace
+- http://events.linuxfoundation.org/sites/events/files/slides/2015-03-05_apachecon2015__introducing_apache_htrace.pdf
+
 ### Java Annotations
 - http://www.yegor256.com/2014/06/01/aop-aspectj-java-method-logging.html
 - http://veerasundar.com/blog/2010/01/spring-aop-example-profiling-method-execution-time-tutorial/
