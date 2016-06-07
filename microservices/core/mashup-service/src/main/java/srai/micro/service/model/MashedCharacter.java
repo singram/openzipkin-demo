@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SwapiCharacter implements Serializable {
+public class MashedCharacter implements Serializable {
 
   private static final long serialVersionUID = 8672943541016167613L;
 
@@ -14,6 +14,8 @@ public class SwapiCharacter implements Serializable {
   private String gender;
 
   private String eye_color;
+
+  private String tag_line;
 
   /**
    * @return the name
@@ -62,6 +64,20 @@ public class SwapiCharacter implements Serializable {
    */
   public void setEye_color(String eye_color) {
     this.eye_color = eye_color;
+  }
+
+  /**
+   * @return the tag_line
+   */
+  public String getTag_line() {
+    return tag_line;
+  }
+
+  /**
+   * @param tag_line the tag_line to set
+   */
+  public void setTag_line(String tag_line) {
+    this.tag_line = tag_line;
   }
 
 }
