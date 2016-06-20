@@ -18,5 +18,10 @@ spring:
 
 logging:
   level:
-    srai.micro.service.services.SwapiService: DEBUG
+    srai:
+      micro:
+        service:
+          services:
+            SwapiService: DEBUG
+            QuoteService: DEBUG
 

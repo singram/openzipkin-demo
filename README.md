@@ -80,6 +80,8 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
 - https://github.com/naver/pinpoint/blob/master/quickstart/README.md
 
 ### Other
+- https://blog.buoyant.io/2016/05/17/distributed-tracing-for-polyglot-microservices/
+- https://github.com/varnish/zipnish/
 - https://github.com/inspectIT/inspectIT
 - https://github.com/apache/incubator-htrace
 - http://events.linuxfoundation.org/sites/events/files/slides/2015-03-05_apachecon2015__introducing_apache_htrace.pdf

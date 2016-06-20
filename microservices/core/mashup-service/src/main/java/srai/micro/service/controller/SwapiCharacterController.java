@@ -37,7 +37,9 @@ public class SwapiCharacterController extends ManagedResponseControllerBase {
       return new ResponseEntity<MashedCharacter>(character, HttpStatus.NOT_FOUND);
     }
     else {
-      character.setTag_line(quoteResponse.getBody().getTag_line());
+      if (quoteResponse != null ) {
+        character.setTag_line(quoteResponse.getBody().getTag_line());
+      }
       return new ResponseEntity<MashedCharacter>(character, HttpStatus.OK);
     }
   }

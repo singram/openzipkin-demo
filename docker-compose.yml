@@ -9,6 +9,8 @@ mashup-service:
     - swapi-proxy
     - zipkin-query
   environment:
+    - SRAI_MICRO_SERVICE_SWAPI-PROXY_URL=http://swapi-proxy:8080/
+    - SRAI_MICRO_SERVICE_QUOTE-SERVICE_URL=http://quote-service:4567/
     - SPRING_ZIPKIN_BASE-URL=http://zipkin-query:9411
     - SPRING_SLEUTH_SAMLPER_PERCENTAGE=1.0
   ports:
@@ -69,6 +71,7 @@ zipkin-query:
     # Uncomment to disable self-tracing
     # - SELF_TRACING_ENABLED=false
     - STORAGE_TYPE=mysql
+    - QUERY_LOG_LEVEL=INFO
     # Point the zipkin at the storage backend
     - MYSQL_HOST=zipkin-storage
   ports:
