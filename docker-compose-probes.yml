@@ -1,0 +1,28 @@
+probe:
+  image: weaveworks/scope:0.15.0
+  net: "host"
+  pid: "host"
+  privileged: true
+  environment:
+    CHECKPOINT_DISABLE: "true"
+  labels:
+    - "works.weave.role=system"
+  volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock:rw"
+  command:
+    - "--probe.docker"
+    - "true"
+
+cadvisor:
+  image: google/cadvisor:v0.23.2
+  volumes:
+    - "/:/rootfs:ro"
+    - "/var/run:/var/run:rw"
+    - "/sys:/sys:ro"
+    - "/var/lib/docker/:/var/lib/docker:ro"
+  ports:
+    - "8082:8080"
+  labels:
+    - "name=cAdvisor"
+    - "description=Google Container Advisor collects metrics from host and containers"
+    - "version=latest"

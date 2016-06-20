@@ -18,7 +18,8 @@ function help {
     echo "    ./${SCRIPT_NAME} portals"
     echo "    ./${SCRIPT_NAME} purge"
     echo "    ./${SCRIPT_NAME} purge_all"
-    echo "    ./${SCRIPT_NAME} run"
+    echo "    ./${SCRIPT_NAME} run_probes"
+    echo "    ./${SCRIPT_NAME} run_zipkin"
     echo "    ./${SCRIPT_NAME} stats"
     echo
 }
@@ -29,8 +30,8 @@ function build {
     cd microservices/core/mashup-service;           ./gradlew clean build; cd -
 
     find . -name *SNAPSHOT.jar -exec du -h {} \;
-    docker-compose rm -f
-    docker-compose build
+    docker-compose -f docker-compose-open-zipkin.yml -f docker-compose-probes.yml -f docker-compose-services.yml rm -fv
+    docker-compose -f docker-compose-open-zipkin.yml -f docker-compose-probes.yml -f docker-compose-services.yml build
 }
 
 case $CMD in
@@ -77,9 +78,13 @@ case $CMD in
         docker rm -f $(docker ps -a -q)
         docker rmi -f $(docker images -q)
         ;;
-    "run")
-        echo "Starting services..."
-        exec docker-compose up
+    "run_probes")
+        echo "Starting services for docker probes..."
+        exec docker-compose -f docker-compose-probes.yml up
+        ;;
+    "run_zipkin")
+        echo "Starting services for zipkin demo..."
+        exec docker-compose -f docker-compose-services.yml -f docker-compose-open-zipkin.yml up
         ;;
     "stats")
         echo "Displaying docker stats..."
