@@ -6,13 +6,17 @@ require 'zipkin-tracer'
 # Unbind requests from localhost only
 set :bind, '0.0.0.0'
 
-use ZipkinTracer::RackHandler, {
-      :service_name => 'quote-server',
-      :service_port => 4567,
-      :json_api_host => ENV['ZIPKIN_QUERY_URL'] || 'http://zipkin-query:9411',
-      :log_tracing => true,
-      :sample_rate => ENV['ZIPKIN_SAMPLE_RATE'].to_f || 1
-   }
+zipkin_config = {
+  :service_name => 'quote-server',
+  :service_port => 4567,
+  :json_api_host => ENV['ZIPKIN_QUERY_URL'] || 'http://zipkin-query:9411/',
+#  :log_tracing => true,
+  :sample_rate => (ENV['ZIPKIN_SAMPLE_RATE'] || 1 ).to_f
+}
+
+puts zipkin_config
+
+use ZipkinTracer::RackHandler, zipkin_config
 
 print "Loading tag lines ..."
 tags = []

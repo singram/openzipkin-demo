@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/singram/zipkin-tracer.git
+  revision: 644262c8ecb92406d32316264d65ea84cce23930
+  branch: fixed_parentId_and_X_B3_SAMPLED
+  specs:
+    zipkin-tracer (0.18.1)
+      faraday (~> 0.8)
+      finagle-thrift (~> 1.4.1)
+      rack (>= 1.0)
+      sucker_punch (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -16,18 +27,13 @@ GEM
     sucker_punch (2.0.2)
       concurrent-ruby (~> 1.0.0)
     tilt (2.0.4)
-    zipkin-tracer (0.18.1)
-      faraday (~> 0.8)
-      finagle-thrift (~> 1.4.1)
-      rack (>= 1.0)
-      sucker_punch (~> 2.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   sinatra
-  zipkin-tracer
+  zipkin-tracer!
 
 BUNDLED WITH
    1.11.2
