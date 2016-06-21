@@ -1,0 +1,98 @@
+mashup-service:
+  links:
+    - quote-service
+    - swapi-proxy
+    - pinpoint-collector
+  environment:
+    - SRAI_MICRO_SERVICE_SWAPI-PROXY_URL=http://swapi-proxy:8080/
+    - SRAI_MICRO_SERVICE_QUOTE-SERVICE_URL=http://quote-service:4567/
+
+swapi-proxy:
+  links:
+    - redis
+    - pinpoint-collector
+  environment:
+    COLLECTOR_IP: pinpoint-collector
+    COLLECTOR_TCP_PORT: 9994
+    COLLECTOR_UDP_STAT_LISTEN_PORT: 9995
+    COLLECTOR_UDP_SPAN_LISTEN_PORT: 9996
+    DISABLE_DEBUG: 'false'
+  entrypoint:
+    - /start_with_pinpoint.sh
+
+    # - java
+    # - -Xmx64m
+    # - -Xss256k
+    # - -javaagent:/assets/pinpoint-agent/pinpoint-bootstrap-1.5.2.jar
+    # - -Dpinpoint.agentId=swapi-proxy-agent
+    # - -Dpinpoint.applicationName=swapi-proxy
+    # - -Djava.security.egd=file:/dev/./urandom
+    # - -jar
+    # - /build/swapi-proxy-0.0.1-SNAPSHOT.jar
+
+pinpoint-hbase:
+  hostname: hbase
+  build: ./docker-pinpoint/pinpoint-hbase/.
+  restart: always
+  expose:
+    - "2181"
+    - "16010"
+  ports:
+    - "2181:2181"
+    - "16010:16010"
+
+pinpoint-collector:
+  hostname: collector
+  build: ./docker-pinpoint/pinpoint-collector/.
+  restart: always
+  expose:
+    - "9994"
+    - "9995"
+    - "9996"
+  ports:
+    - "9994:9994"
+    - "9995:9995/tcp"
+    - "9996:9996/tcp"
+    - "9995:9995/udp"
+    - "9996:9996/udp"
+  environment:
+    HBASE_HOST: hbase
+    HBASE_PORT: 2181
+    COLLECTOR_TCP_PORT: 9994
+    COLLECTOR_UDP_STAT_LISTEN_PORT: 9995
+    COLLECTOR_UDP_SPAN_LISTEN_PORT: 9996
+    CLUSTER_ENABLE: 'false'
+    DISABLE_DEBUG: 'true'
+  links:
+    - pinpoint-hbase:hbase
+
+pinpoint-web:
+  hostname: web
+  build: ./docker-pinpoint/pinpoint-web/.
+  restart: always
+  expose:
+    - "8080"
+  ports:
+    - "3080:8080"
+  environment:
+    HBASE_HOST: hbase
+    HBASE_PORT: 2181
+    CLUSTER_ENABLE: 'false'
+    ADMIN_PASSWORD: admin123
+    DISABLE_DEBUG: 'true'
+  links:
+    - pinpoint-hbase:hbase
+
+# only example
+#pinpoint-agent:
+#  image: dawidmalina/pinpoint-agent:1.5.2
+#  net: "none"
+#  restart: unless-stopped
+#  volumes:
+#    - /var/container_data/pinpoint-agent/log:/opt/app/pinpoint-agent/log:rw
+#  environment:
+#    COLLECTOR_IP: 192.168.99.100
+#    COLLECTOR_TCP_PORT: 9994
+#    COLLECTOR_UDP_STAT_LISTEN_PORT: 9995
+#    COLLECTOR_UDP_SPAN_LISTEN_PORT: 9996
+#    DISABLE_DEBUG: 'true'

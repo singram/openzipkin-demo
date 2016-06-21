@@ -1,4 +1,5 @@
-FROM anapsix/alpine-java:jre8
+# FROM anapsix/alpine-java:jre8
+FROM pinpoint-agent
 LABEL  srai.micro.service="mashup-service" srai.micro.project="true"
 VOLUME /tmp
 RUN mkdir /build

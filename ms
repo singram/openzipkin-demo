@@ -30,8 +30,9 @@ function build {
     cd microservices/core/mashup-service;           ./gradlew clean build; cd -
 
     find . -name *SNAPSHOT.jar -exec du -h {} \;
-    docker-compose -f docker-compose-open-zipkin.yml -f docker-compose-probes.yml -f docker-compose-services.yml rm -fv
-    docker-compose -f docker-compose-open-zipkin.yml -f docker-compose-probes.yml -f docker-compose-services.yml build
+    docker build -t pinpoint-agent ./docker-pinpoint/pinpoint-agent/.
+    docker-compose -f docker-compose-open-zipkin.yml -f docker-compose-pinpoint.yml -f docker-compose-probes.yml -f docker-compose-services.yml rm -fv
+    docker-compose -f docker-compose-open-zipkin.yml -f docker-compose-pinpoint.yml -f docker-compose-probes.yml -f docker-compose-services.yml build
 }
 
 case $CMD in
@@ -81,6 +82,10 @@ case $CMD in
     "run_probes")
         echo "Starting services for docker probes..."
         exec docker-compose -f docker-compose-probes.yml up
+        ;;
+    "run_pinpoint")
+        echo "Starting services for pinpoint demo..."
+        exec docker-compose -f docker-compose-services.yml -f docker-compose-pinpoint.yml up
         ;;
     "run_zipkin")
         echo "Starting services for zipkin demo..."
