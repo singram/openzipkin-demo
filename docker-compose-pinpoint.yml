@@ -4,15 +4,9 @@ mashup-service:
     - swapi-proxy
     - pinpoint-collector
   environment:
-    - SRAI_MICRO_SERVICE_SWAPI-PROXY_URL=http://swapi-proxy:8080/
-    - SRAI_MICRO_SERVICE_QUOTE-SERVICE_URL=http://quote-service:4567/
-
-swapi-proxy:
-  links:
-    - redis
-    - pinpoint-collector
-  environment:
-    COLLECTOR_IP: pinpoint-collector
+    SRAI_MICRO_SERVICE_SWAPI-PROXY_URL: 'http://swapi-proxy:8080/'
+    SRAI_MICRO_SERVICE_QUOTE-SERVICE_URL: 'http://quote-service:4567/'
+    COLLECTOR_IP: 'pinpoint-collector'
     COLLECTOR_TCP_PORT: 9994
     COLLECTOR_UDP_STAT_LISTEN_PORT: 9995
     COLLECTOR_UDP_SPAN_LISTEN_PORT: 9996
@@ -20,20 +14,23 @@ swapi-proxy:
   entrypoint:
     - /start_with_pinpoint.sh
 
-    # - java
-    # - -Xmx64m
-    # - -Xss256k
-    # - -javaagent:/assets/pinpoint-agent/pinpoint-bootstrap-1.5.2.jar
-    # - -Dpinpoint.agentId=swapi-proxy-agent
-    # - -Dpinpoint.applicationName=swapi-proxy
-    # - -Djava.security.egd=file:/dev/./urandom
-    # - -jar
-    # - /build/swapi-proxy-0.0.1-SNAPSHOT.jar
+swapi-proxy:
+  links:
+    - redis
+    - pinpoint-collector
+  environment:
+    COLLECTOR_IP: 'pinpoint-collector'
+    COLLECTOR_TCP_PORT: 9994
+    COLLECTOR_UDP_STAT_LISTEN_PORT: 9995
+    COLLECTOR_UDP_SPAN_LISTEN_PORT: 9996
+    DISABLE_DEBUG: 'false'
+  entrypoint:
+    - /start_with_pinpoint.sh
 
 pinpoint-hbase:
   hostname: hbase
   build: ./docker-pinpoint/pinpoint-hbase/.
-  restart: always
+#  restart: always
   expose:
     - "2181"
     - "16010"
@@ -44,7 +41,7 @@ pinpoint-hbase:
 pinpoint-collector:
   hostname: collector
   build: ./docker-pinpoint/pinpoint-collector/.
-  restart: always
+#  restart: always
   expose:
     - "9994"
     - "9995"
@@ -64,12 +61,12 @@ pinpoint-collector:
     CLUSTER_ENABLE: 'false'
     DISABLE_DEBUG: 'true'
   links:
-    - pinpoint-hbase:hbase
+    - pinpoint-hbase
 
 pinpoint-web:
   hostname: web
   build: ./docker-pinpoint/pinpoint-web/.
-  restart: always
+#  restart: always
   expose:
     - "8080"
   ports:
@@ -81,7 +78,7 @@ pinpoint-web:
     ADMIN_PASSWORD: admin123
     DISABLE_DEBUG: 'true'
   links:
-    - pinpoint-hbase:hbase
+    - pinpoint-hbase
 
 # only example
 #pinpoint-agent:

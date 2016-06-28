@@ -19,6 +19,7 @@ function help {
     echo "    ./${SCRIPT_NAME} purge"
     echo "    ./${SCRIPT_NAME} purge_all"
     echo "    ./${SCRIPT_NAME} run_probes"
+    echo "    ./${SCRIPT_NAME} run_pinpoint"
     echo "    ./${SCRIPT_NAME} run_zipkin"
     echo "    ./${SCRIPT_NAME} stats"
     echo

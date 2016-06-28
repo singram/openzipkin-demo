@@ -79,6 +79,11 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
 - https://github.com/naver/pinpoint/releases/tag/1.5.2
 - https://github.com/naver/pinpoint/blob/master/quickstart/README.md
 
+### Feign
+https://github.com/spring-cloud/spring-cloud-netflix/commit/a6b94a38fe5778970a122cf21c94d7159c1ce1dc
+https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot-part-3-feign/
+https://github.com/Netflix/feign
+
 ### Other
 - https://blog.buoyant.io/2016/05/17/distributed-tracing-for-polyglot-microservices/
 - https://github.com/varnish/zipnish/
