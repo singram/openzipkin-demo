@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
-import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -20,10 +19,10 @@ public class Application {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
-  @Bean
-  public AlwaysSampler defaultSampler() {
-    return new AlwaysSampler();
-  }
+  //  @Bean
+  //  public AlwaysSampler defaultSampler() {
+  //    return new AlwaysSampler();
+  //  }
 
   @Bean
   RedisTemplate<String, CachableSwapiCharacter> redisTemplate(RedisConnectionFactory connectionFactory) {
@@ -31,6 +30,7 @@ public class Application {
     template.setConnectionFactory(connectionFactory);
     return template;
   }
+
 
   /** Main entry point. */
   public static void main(final String... args) {

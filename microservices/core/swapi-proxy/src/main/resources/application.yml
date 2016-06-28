@@ -15,8 +15,12 @@ spring:
       percentage: 1
   zipkin:
     base-url: http://zipkin-query:9411 
-
+feign:
+  httpclient:
+    enabled: true
 logging:
   level:
+    org.springframework.web: DEBUG
     srai.micro.service.services.SwapiService: DEBUG
-
+    org.apache.http: DEBUG
+    org.apache.http.wire: ERROR

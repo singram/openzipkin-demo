@@ -33,6 +33,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.cloud:spring-cloud-starter-feign")
+    compile('com.netflix.feign:feign-httpclient:8.16.2')
+    
 //    compile("org.springframework.cloud:spring-cloud-starter-sleuth")
     compile("org.springframework.cloud:spring-cloud-starter-zipkin")
     compile("srai.micro:util:0.0.1-SNAPSHOT")
