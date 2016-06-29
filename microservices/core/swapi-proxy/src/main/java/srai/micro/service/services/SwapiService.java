@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import srai.micro.service.model.SwapiCharacter;
 
 @Service
-@FeignClient(name = "swapi-service", url = "http://swapi.co/api/")
+//@FeignClient(name = "swapi-service", url = "http://swapi.co/api/")
 //@FeignClient(name = "swapi-service", url = "http://anapioficeandfire.com/api/")
+@FeignClient(name = "swapi-service")
 public interface SwapiService {
-  @RequestMapping(method = RequestMethod.GET, value = "/people/{personId}")
+  @RequestMapping(method = RequestMethod.GET, value = "/api/people/{personId}")
   ResponseEntity<SwapiCharacter> getCharacter(@RequestHeader(value="User-Agent", defaultValue="curl/7.45.0") String userAgent, @PathVariable("personId") long personId);
 }
