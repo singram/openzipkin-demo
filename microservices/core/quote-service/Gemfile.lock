@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/singram/zipkin-tracer.git
-  revision: 644262c8ecb92406d32316264d65ea84cce23930
-  branch: fixed_parentId_and_X_B3_SAMPLED
+  revision: b30bd6ac182e11875f1e9b8a49adbabd72a8bb1e
+  branch: changed_representation_of_X_B3_SAMPLED
   specs:
-    zipkin-tracer (0.18.1)
+    zipkin-tracer (0.19.0)
       faraday (~> 0.8)
       finagle-thrift (~> 1.4.1)
       rack (>= 1.0)

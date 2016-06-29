@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'zipkin-tracer', :git => 'https://github.com/singram/zipkin-tracer.git', :branch => 'fixed_parentId_and_X_B3_SAMPLED'
+gem 'zipkin-tracer', :git => 'https://github.com/singram/zipkin-tracer.git', :branch => 'changed_representation_of_X_B3_SAMPLED'

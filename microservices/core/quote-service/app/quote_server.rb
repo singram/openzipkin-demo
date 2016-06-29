@@ -29,6 +29,19 @@ $stdout.puts " done"
 r = Random.new(Time.now.to_i)
 
 get '/' do
- content_type 'application/json'
+  content_type 'application/json'
+  puts outbound_test
  {'tag_line' => tags[r.rand(TAG_COUNT)]}.to_json
+end
+
+
+require 'faraday'
+def outbound_test
+  conn = Faraday.new(:url => 'http://www.google.com') do |faraday|
+    faraday.use ZipkinTracer::FaradayHandler, 'mygoogle' # 'service_name' is optional (but recommended)
+    faraday.request :url_encoded
+    faraday.adapter Faraday.default_adapter
+  end
+  response = conn.get '/'
+  response.body
 end
