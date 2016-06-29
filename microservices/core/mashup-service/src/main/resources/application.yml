@@ -16,12 +16,15 @@ spring:
   zipkin:
     base-url: http://zipkin-query:9411 
 
+feign:
+  httpclient:
+    enabled: true
+
 logging:
   level:
-    srai:
-      micro:
-        service:
-          services:
-            SwapiService: DEBUG
-            QuoteService: DEBUG
+    org.springframework.web: DEBUG
+    srai.micro.service.services.SwapiService: DEBUG
+    srai.micro.service.services.QuoteService: DEBUG
+    org.apache.http: DEBUG
+    org.apache.http.wire: ERROR
 

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import srai.micro.service.model.MashedCharacter;
 
 @Service
-@FeignClient(name = "swapi-service", url = "${srai.micro.service.swapi-proxy.url}")
+//@FeignClient(name = "swapi-service", url = "${srai.micro.service.swapi-proxy.url}")
+@FeignClient(name = "swapi-service")
 public interface SwapiService {
   @RequestMapping(method = RequestMethod.GET, value = "/person/{personId}")
   ResponseEntity<MashedCharacter> getCharacter(@PathVariable("personId") long personId);
