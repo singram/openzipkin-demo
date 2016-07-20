@@ -10,7 +10,7 @@ import srai.micro.service.model.MashedCharacter;
 
 @Service
 //@FeignClient(name = "quote-service", url = "${srai.micro.service.quote-service.url}")
-@FeignClient("quote-service")
+@FeignClient(name = "quote-service", fallback = QuoteServiceFallback.class)
 public interface QuoteService {
   @RequestMapping(method = RequestMethod.GET, value = "/")
   ResponseEntity<MashedCharacter> getQuote();
