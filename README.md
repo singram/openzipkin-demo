@@ -57,8 +57,13 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
     echo "org.gradle.daemon=true" >> ~/.gradle/gradle.properties
 
 ## TODO
-- Rename service to swapi-proxy
-- Add Hystrix support for timeouts or disable.
+
+## Debuging
+
+### Mysql
+
+    mysql -h 127.0.0.1 -u zipkin -pzipkin -D zipkin
+    SELECT HEX(trace_id), HEX(id), HEX(parent_id), name, debug, duration, start_ts FROM zipkin_spans where trace_id = <trace id of interest> order by start_ts;
 
 ## References
 
@@ -73,6 +78,8 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
 - https://github.com/openzipkin/docker-zipkin
 - https://github.com/openzipkin/zipkin-tracer
 - https://github.com/spring-cloud/spring-cloud-sleuth
+- https://godoc.org/github.com/micro/go-platform/trace/zipkin/thrift/gen-go/zipkincore
+- https://github.com/opentracing/opentracing-java/blob/master/opentracing-api/src/main/java/io/opentracing/tag/Tags.java
 
 ### Pinpoint
 - https://github.com/naver/pinpoint
