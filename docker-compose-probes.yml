@@ -1,5 +1,5 @@
 probe:
-  image: weaveworks/scope:0.15.0
+  image: weaveworks/scope:0.16.1
   net: "host"
   pid: "host"
   privileged: true
