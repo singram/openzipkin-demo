@@ -25,11 +25,11 @@ public class SwapiCharacterController extends ManagedResponseControllerBase {
   @Autowired
   SwapiService swapiService;
 
-  @RequestMapping(value = "/person/{characterId}", method = RequestMethod.GET)
+  @RequestMapping(value = "/character/{characterId}", method = RequestMethod.GET)
   @ResponseBody public ResponseEntity<?> getSwapiCharacter(@PathVariable long characterId) {
-    logger.info("/person/{personId} called", characterId);
+    logger.info("/character/{personId} called", characterId);
     final int pt = controlResponseTimeAndError();
-    logger.debug("/person/{personId} return the found person, processing time: {}", characterId, pt);
+    logger.debug("/character/{personId} return the found person, processing time: {}", characterId, pt);
 
     // Check cache
     CachableSwapiCharacter cachedCharacter = new CachableSwapiCharacter(characterId);
@@ -52,11 +52,11 @@ public class SwapiCharacterController extends ManagedResponseControllerBase {
   }
 
 
-  @RequestMapping(value = "/person/", method = RequestMethod.POST)
+  @RequestMapping(value = "/character/", method = RequestMethod.POST)
   @ResponseBody public void savePerson(@RequestBody final CachableSwapiCharacter person) {
-    logger.info("/person/ called");
+    logger.info("/character/ called");
     final int pt = controlResponseTimeAndError();
-    logger.debug("/person/ return the created person, processing time: {}", pt);
+    logger.debug("/character/ return the created person, processing time: {}", pt);
     characterRepository.put(person);
   }
 
