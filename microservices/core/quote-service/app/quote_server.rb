@@ -30,7 +30,7 @@ r = Random.new(Time.now.to_i)
 
 get '/' do
   content_type 'application/json'
-  puts outbound_test
+  outbound_test # Call to google for the sake of an external dependancy
  {'tag_line' => tags[r.rand(TAG_COUNT)]}.to_json
 end
 
