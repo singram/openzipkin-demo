@@ -12,6 +12,7 @@ function help {
     echo "    ./${SCRIPT_NAME} build"
     echo "    ./${SCRIPT_NAME} clean"
     echo "    ./${SCRIPT_NAME} docker_host_ip"
+    echo "    ./${SCRIPT_NAME} docker_ips"
     echo "    ./${SCRIPT_NAME} redis_clear"
     echo "    ./${SCRIPT_NAME} redis_load_data"
     echo "    ./${SCRIPT_NAME} redis_monitor"
@@ -47,6 +48,9 @@ case $CMD in
         ;;
     "docker_host_ip")
         echo $DOCKER_HOST_IP
+        ;;
+    "docker_ips")
+        docker ps -q | xargs -n 1 docker inspect --format '{{ .NetworkSettings.IPAddress }} {{ .Name }}' | sed 's/ \// /'
         ;;
     "help")
         help
