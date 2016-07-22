@@ -6,6 +6,7 @@ mashup-service:
   environment:
     - SRAI_MICRO_SERVICE_SWAPI-PROXY_URL=http://swapi-proxy:8080/
     - SRAI_MICRO_SERVICE_QUOTE-SERVICE_URL=http://quote-service:4567/
+#    - SRAI_MICRO_SERVICE_QUOTE-SERVICE_URL=http://172.17.0.1:4567/
     - SPRING_ZIPKIN_BASE-URL=http://zipkin-query:9411
     - SPRING_SLEUTH_SAMLPER_PERCENTAGE=1.0
 
@@ -25,15 +26,14 @@ swapi-proxy:
     - SPRING_SLEUTH_SAMLPER_PERCENTAGE=1.0
 
 zipkin-storage:
-  image: openzipkin/zipkin-mysql:1.1.4
+  image: openzipkin/zipkin-mysql:1.4.0
   ports:
     - 3306:3306
 
 zipkin-query:
-  image: openzipkin/zipkin:1.1.4
+  image: openzipkin/zipkin:1.4.0
   environment:
-    # Uncomment to disable self-tracing
-    # - SELF_TRACING_ENABLED=false
+    - SELF_TRACING_ENABLED=false
     - STORAGE_TYPE=mysql
     - QUERY_LOG_LEVEL=INFO
     # Point the zipkin at the storage backend

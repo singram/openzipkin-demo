@@ -6,6 +6,7 @@ mashup-service:
   environment:
     SRAI_MICRO_SERVICE_SWAPI-PROXY_URL: 'http://swapi-proxy:8080/'
     SRAI_MICRO_SERVICE_QUOTE-SERVICE_URL: 'http://quote-service:4567/'
+#    SRAI_MICRO_SERVICE_QUOTE-SERVICE_URL: 'http://172.17.0.1:4567/'
     COLLECTOR_IP: 'pinpoint-collector'
     COLLECTOR_TCP_PORT: 9994
     COLLECTOR_UDP_STAT_LISTEN_PORT: 9995
