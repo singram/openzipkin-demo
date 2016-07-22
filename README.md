@@ -1,5 +1,9 @@
 # openzipkin-demo
-Experiments with the open zipkin framework
+Experiments with the open zipkin framework & pinpoint.
+
+## Goals
+- Explore opensource trace offerings applicable to micro services
+- Develop framework service the combines both internal and external services and apply both openzipkin and pinpoint to it.
 
 ## Clone project
 
@@ -43,20 +47,53 @@ Install supporting tools
 
     sudo apt-get install jq
 
-### To run
+### To build
 
 Execute the following to run the services.
 
     ./ms build
-    ./ms run
 
-### Gradle daemon
+#### Gradle daemon
 
 To accelerate local development, it is recommended to run gradle daemonized.  This is as simple as running the following
 
     echo "org.gradle.daemon=true" >> ~/.gradle/gradle.properties
 
-## TODO
+### To run
+
+#### With open-zipkin
+
+    ./ms run_zipkin
+
+#### With pinpoint
+
+    ./ms run_zipkin
+
+### To access management portals
+
+    ./ms portals
+
+Note.  While this will open all relevant webpages not all will be populated depending on whether zipkin or pinpoint instrumentation is running.
+
+## Overview
+
+There are 3 key services
+- swapi-proxy
+-- A simple Spring Boot Java proxy service to the StarWars API which will cache returned data in Redis.
+--  e.g. curl localhost:8083/character/2 | jq .
+- quote-service
+-- A simple Sinatra Ruby application which randomly returns a quote loaded from a local file.  For each call it also makes a call to www.google.com as an equivalent external dependancy to the swapi-proxy service
+--  e.g. curl localhost:4567/ | jq .
+- mashup-service
+-- A SpringBoot Java application which calls both swapi-proxy and quote-services blending the data together in a payload.
+--  e.g. curl localhost:8083/person/2 | jq .
+
+To generate trace data execute
+
+    curl localhost:8083/person/2 | jq .
+
+In the docker compose files the sample rate for both zipkin and pinpoint is set to 100%.
+
 
 ## Debuging
 
@@ -87,9 +124,9 @@ To accelerate local development, it is recommended to run gradle daemonized.  Th
 - https://github.com/naver/pinpoint/blob/master/quickstart/README.md
 
 ### Feign
-https://github.com/spring-cloud/spring-cloud-netflix/commit/a6b94a38fe5778970a122cf21c94d7159c1ce1dc
-https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot-part-3-feign/
-https://github.com/Netflix/feign
+- https://github.com/spring-cloud/spring-cloud-netflix/commit/a6b94a38fe5778970a122cf21c94d7159c1ce1dc
+- https://blog.de-swaef.eu/the-netflix-stack-using-spring-boot-part-3-feign/
+- https://github.com/Netflix/feign
 
 ### Other
 - https://blog.buoyant.io/2016/05/17/distributed-tracing-for-polyglot-microservices/
