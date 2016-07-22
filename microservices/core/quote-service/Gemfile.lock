@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/singram/zipkin-tracer.git
-  revision: b30bd6ac182e11875f1e9b8a49adbabd72a8bb1e
+  revision: 5762250d697b59e2e7e0e7edea338a14e5f03502
   branch: changed_representation_of_X_B3_SAMPLED
   specs:
     zipkin-tracer (0.19.0)
