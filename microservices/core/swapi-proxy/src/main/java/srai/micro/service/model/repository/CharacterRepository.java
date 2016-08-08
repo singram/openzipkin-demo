@@ -47,7 +47,10 @@ public class CharacterRepository implements Repository<CachableSwapiCharacter> {
       newSpan.logEvent(Span.CLIENT_SEND);
       redisTemplate.opsForHash().put(character.getObjectKey(), character.getKey(), character);
     } finally {
-      newSpan.tag("sa", getRedisURI());
+      newSpan.tag("peer.service", "redis");
+      newSpan.tag("peer.ipv4", redisHostName);
+      newSpan.tag("peer.port", redisPort);
+      //newSpan.tag("sa", getRedisURI());
       newSpan.logEvent(Span.CLIENT_RECV);
       this.tracer.close(newSpan);
     }
@@ -63,7 +66,10 @@ public class CharacterRepository implements Repository<CachableSwapiCharacter> {
       newSpan.logEvent(Span.CLIENT_SEND);
       redisTemplate.opsForHash().delete(key.getObjectKey(), key.getKey());
     } finally {
-      newSpan.tag("sa", getRedisURI());
+      newSpan.tag("peer.service", "redis");
+      newSpan.tag("peer.ipv4", redisHostName);
+      newSpan.tag("peer.port", redisPort);
+      //newSpan.tag("sa", getRedisURI());
       newSpan.logEvent(Span.CLIENT_RECV);
       this.tracer.close(newSpan);
     }
@@ -79,7 +85,10 @@ public class CharacterRepository implements Repository<CachableSwapiCharacter> {
       newSpan.logEvent(Span.CLIENT_SEND);
       return (CachableSwapiCharacter) redisTemplate.opsForHash().get(key.getObjectKey(), key.getKey());
     } finally {
-      newSpan.tag("sa", getRedisURI());
+      newSpan.tag("peer.service", "redis");
+      newSpan.tag("peer.ipv4", redisHostName);
+      newSpan.tag("peer.port", redisPort);
+      //newSpan.tag("sa", getRedisURI());
       newSpan.logEvent(Span.CLIENT_RECV);
       this.tracer.close(newSpan);
     }
